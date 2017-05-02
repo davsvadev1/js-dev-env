@@ -13,6 +13,14 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
 }));
 
+app.get('/users', function(req, res) {
+  res.json([
+    {"id": 1, "firstName": "Arne", "lastName": "Karlbom", "email": "a@karlbom.se"},
+    {"id": 2, "firstName": "Lisa", "lastName": "Karlbom", "email": "l@karlbom.se"},
+    {"id": 3, "firstName": "Bernt", "lastName": "Que", "email": "b@karlbom.se"}
+  ]);
+});
+
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../src/index.html'));
 });
