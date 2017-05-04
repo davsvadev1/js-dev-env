@@ -1,17 +1,13 @@
 import express from 'express';
 import path from 'path';
 import open from 'open';
-import webpack from 'webpack';
-import config from '../webpack-config.dev';
+//import compression from 'compression';
 
 var port = 3000;
 var app = express();
-var compiler = webpack(config);
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
+//app.use(compression());
+app.use(express.static('dist'));
 
 app.get('/users', function(req, res) {
   res.json([
@@ -22,7 +18,7 @@ app.get('/users', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../src/index.html'));
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 app.listen(port, function(err) {

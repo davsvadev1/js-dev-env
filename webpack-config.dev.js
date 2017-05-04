@@ -1,17 +1,24 @@
-const path = require('path');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-module.exports = {
+export default {
   devtool: 'inline-source-map',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'src'),
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
-      {test: /\.(js|jsx)$/, use: 'babel-loader'},
+    rules: [
+      {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
       {test: /\.css$/, loaders: ['style-loader','css-loader']}
     ]
   },
-  plugins: [],
+  plugins: [
+    // Create HTML file that includes reference to bundle JS.
+    new HtmlWebpackPlugin( {
+      template: 'src/index.html',
+      inject: true
+    })
+  ],
 };

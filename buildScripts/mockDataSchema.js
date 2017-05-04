@@ -1,4 +1,4 @@
-module.exports = {
+export const schema = {
   "type": "object",
   "properties": {
     "users": {
